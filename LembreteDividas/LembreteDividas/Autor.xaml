@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LembreteDividas.Autor"
+             Padding="10"
+             Title="Sobre o autor">
+    <TableView Intent="Data" HasUnevenRows="True" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <TableRoot>
+            <TableSection Title="Autor" TextColor="Blue">
+                <TextCell Text="Rayan Ralile" Detail="rayan@ralile.com.br"  Tapped="Email_Tapped" TextColor="Black"/>
+                <TextCell Text="GitHub" Detail="https://github.com/rayanralile" Tapped="GitHub_Tapped" TextColor="Black"/>
+            </TableSection>
+            <TableSection Title="Licença de uso" TextColor="Blue">
+                <ImageCell Text="Attribution 4.0 International (CC BY 4.0)" ImageSource="https://licensebuttons.net/l/by/3.0/88x31.png"
+                           Tapped="License_Tapped" TextColor="Black"/>
+            </TableSection>
+            <TableSection Title="Créditos" TextColor="Blue">
+                <TextCell Text="Ícones retirados do site Icons8" Detail="icons8.com" Tapped="Icons8_Tapped" TextColor="Black"/>
+            </TableSection>
+            <!-- <TableSection Title="Easter Egg">
+                <TextCell Text="Testar Notificação" Detail="Clique aqui para isto!" Tapped="Notificar_Tapped"/>
+                <TextCell Text="Segundo Clique" Detail="Clique aqui para testar atualizar not" Tapped="SegundoClique_Tapped" />
+            </TableSection> -->
+        </TableRoot>
+    </TableView>
+</ContentPage>

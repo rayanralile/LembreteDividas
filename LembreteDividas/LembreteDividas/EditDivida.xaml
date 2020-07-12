@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LembreteDividas.EditDivida">
+    <AbsoluteLayout>
+        <TableView Intent="Form" HasUnevenRows="True" AbsoluteLayout.LayoutBounds="0, 0, 1, 0.9" AbsoluteLayout.LayoutFlags="All">
+            <TableRoot>
+                <TableSection>
+                    <ViewCell>
+                        <Grid Padding="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="Título" VerticalOptions="Center"/>
+                            <Entry Grid.Row="0" Grid.Column="1" Placeholder="Ex.: Conta de Luz" x:Name="lbTitulo" VerticalOptions="Center" TextChanged="lbTitulo_TextChanged" Keyboard="Text" MaxLength="100"/>
+                        </Grid>
+                    </ViewCell>
+                    <ViewCell>
+                        <Grid Padding="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Descrição (opcional):" VerticalOptions="Center"
+                               Grid.Row="0" Grid.Column="0"/>
+                            <Editor Placeholder="Ex: Luz da casa do meu filho" FlowDirection="LeftToRight" HeightRequest="100"
+                                x:Name="taObservacao" Grid.Row="0" Grid.Column="1" Keyboard="Text" MaxLength="255"/>
+                        </Grid>
+                    </ViewCell>
+                    <ViewCell>
+                        <Grid Padding="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Valor (R$):" VerticalOptions="Center"
+                               Grid.Row="0" Grid.Column="0"/>
+                            <Entry Grid.Row="0" Grid.Column="1" Placeholder="230,18" x:Name="lbValor" VerticalOptions="Center" Keyboard="Numeric"/>
+                        </Grid>
+                    </ViewCell>
+                    <ViewCell>
+                        <Grid Padding="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Vencimento:" VerticalOptions="Center"
+                               Grid.Row="0" Grid.Column="0"/>
+                            <DatePicker Date="{x:Static sys:DateTime.Today}"
+                                    x:Name="dfData" Grid.Row="0" Grid.Column="1"/>
+                        </Grid>
+                    </ViewCell>
+                    <SwitchCell Text="É mensal?" On="False" x:Name="swIsMensal"/>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+        <Button Text="Salvar Alterações" Clicked="Salvar_Clicked" 
+                AbsoluteLayout.LayoutBounds="0, 1, 1, 0.1" AbsoluteLayout.LayoutFlags="All"/>
+    </AbsoluteLayout>
+</ContentPage>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:LembreteDividas"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LembreteDividas.MainPage">
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu">
+            <ContentPage.BackgroundColor>
+                <OnPlatform x:TypeArguments="Color" Android="LightGray" />
+            </ContentPage.BackgroundColor>
+            <StackLayout>
+                <Image Source="background.jpg"/>
+                <TableView Intent="Menu">
+                    <TableRoot>
+                        <TableSection Title="Suas contas:" TextColor="Blue">
+                            <ImageCell Text="Contas Atrasadas" ImageSource="red.png" Tapped="OverdueBills_Tapped" TextColor="Black"/>
+                            <ImageCell Text="Contas a Pagar" ImageSource="yellow.png" Tapped="DividasPagar_Tapped" TextColor="Black"/>
+                            <ImageCell Text="Contas já Pagas" ImageSource="green.png" Tapped="DividasJaPagas_Tapped" TextColor="Black"/>
+                        </TableSection>
+                        <TableSection Title="Sobre o App:" TextColor="Blue">
+                            <ImageCell Text="Autor" ImageSource="user.png" Tapped="Autor_Tapped" TextColor="Black"/>
+                            <ImageCell Text="Feedback ao autor" ImageSource="docs.png" Tapped="Feedback_Tapped" TextColor="Black"/>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <ContentPage/>
+    </MasterDetailPage.Detail>
+
+</MasterDetailPage>
