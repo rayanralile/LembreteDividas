@@ -31,16 +31,10 @@ namespace LembreteDividas
         {
             Browser.OpenAsync("mailto:rayan@ralile.com.br", BrowserLaunchMode.SystemPreferred);
         }
-        /*
-        private void Notificar_Tapped(object sender, EventArgs e)
-        {
-            CrossLocalNotifications.Current.Show("Agendado no passado", "Garrou", 101, DateTime.Now.AddSeconds(5));
-        }
 
-        private void SegundoClique_Tapped(object sender, EventArgs e)
+        private void Pexels_Tapped(object sender, EventArgs e)
         {
-            CrossLocalNotifications.Current.Cancel(101);
+            Browser.OpenAsync("https://www.pexels.com/@pixabay", BrowserLaunchMode.SystemPreferred);
         }
-        */
     }
 }

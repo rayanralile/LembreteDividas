@@ -137,6 +137,7 @@ namespace LembreteDividas
                 CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
                 OverdueBills.InsertBill(novaConta);
             }
+            CalculateSum();
         }
     }
 }

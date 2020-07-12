@@ -126,6 +126,7 @@ namespace LembreteDividas
                 }
                 await DisplayAlert("Conta recorrente!", $"A conta {novaDivida.Titulo} foi criada com vencimento em {novaDivida.DataMensal}", "Ok");
             }
+            CalculateSum();
         }
 
         private async void Apagar_Clicked(object sender, EventArgs e)

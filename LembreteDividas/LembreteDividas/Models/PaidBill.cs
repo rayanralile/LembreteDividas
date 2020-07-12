@@ -73,7 +73,7 @@ namespace LembreteDividas.Models
                 OnPropertyChanged(nameof(DataVencimento));
             }
         }
-        public string DataMensal { get { return String.Format("{0:D2} / {1:D2}", DataVencimento.Day, DataVencimento.Month); } }
+        public string DataMensal { get { return String.Format("{0:D2}/{1:D2}", DataVencimento.Day, DataVencimento.Month); } }
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

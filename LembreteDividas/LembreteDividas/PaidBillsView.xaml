@@ -21,15 +21,15 @@
                         </ViewCell.ContextActions>
                         <Grid Padding="10,0">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="4*" />
                                 <ColumnDefinition Width="3*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="{Binding Titulo}" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HeightRequest="50"/>
                             <Label Grid.Column="1" Text="{Binding Valor, StringFormat='R$ {0:F2}'}" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                             <Label Grid.Column="2" Text="{Binding DataMensal}" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                            <Button Grid.Column="3" Text="Apagar" BackgroundColor="Red" TextColor="White" Clicked="Apagar_Clicked" CommandParameter="{Binding .}" HeightRequest="35" VerticalOptions="Center"/>
+                            <Button Grid.Column="3" Text="X" BackgroundColor="Red" TextColor="White" Clicked="Apagar_Clicked" CommandParameter="{Binding .}" HeightRequest="35" VerticalOptions="Center"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

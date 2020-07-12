@@ -19,6 +19,7 @@
             </TableSection>
             <TableSection Title="Créditos" TextColor="Blue">
                 <TextCell Text="Ícones retirados do site Icons8" Detail="icons8.com" Tapped="Icons8_Tapped" TextColor="Black"/>
+                <TextCell Text="Banner do menu" Detail="pexels.com" Tapped="Pexels_Tapped" TextColor="Black"/>
             </TableSection>
             <!-- <TableSection Title="Easter Egg">
                 <TextCell Text="Testar Notificação" Detail="Clique aqui para isto!" Tapped="Notificar_Tapped"/>

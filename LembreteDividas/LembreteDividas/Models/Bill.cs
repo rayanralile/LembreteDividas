@@ -71,18 +71,6 @@ namespace LembreteDividas.Models
                 OnPropertyChanged(nameof(DataVencimento));
             }
         }
-     /*   private bool _isPago;
-        public bool IsPago
-        {
-            get { return _isPago; }
-            set
-            {
-                if (_isPago == value)
-                    return;
-                _isPago = value;
-                OnPropertyChanged(nameof(IsPago));
-            }
-        } */
         private bool _isMensal;
         public bool IsMensal
         {
@@ -95,7 +83,7 @@ namespace LembreteDividas.Models
                 OnPropertyChanged(nameof(IsMensal));
             }
         }
-        public string DataMensal { get { return String.Format("{0:D2} / {1:D2}", DataVencimento.Day, DataVencimento.Month); } }
+        public string DataMensal { get { return String.Format("{0:D2}/{1:D2}", DataVencimento.Day, DataVencimento.Month); } }
         public string Recorrente { get 
             {
                 if (this.IsMensal)
