@@ -49,6 +49,7 @@ namespace LembreteDividas
                     var temp1 = await _conn.Table<Bill>().OrderByDescending(x => x.Id).FirstAsync();
                     bill.Id = temp1.Id;
                     OverdueBills.InsertBill(bill);
+                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
                 }
                 else
                 {
@@ -60,8 +61,8 @@ namespace LembreteDividas
                         Dividas.DeleteBill(bill);
                         OverdueBills.InsertBill(bill);
                         CrossLocalNotifications.Current.Cancel(_id);
-                        CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
                     }
+                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
                     await _conn.UpdateAsync(bill);
                 }
             }

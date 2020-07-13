@@ -34,6 +34,12 @@ namespace LembreteDividas
             else 
             {
                 CrossLocalNotifications.Current.Cancel(999999999);
+                foreach (var item in contas)
+                {
+                    CrossLocalNotifications.Current.Show($"A conta {item.Titulo} vence hoje",
+                        $"Valor: R${String.Format("{0:F2}", item.Valor)} - Clique aqui para abrir o App",
+                        item.Id, item.DataVencimento.AddHours(12));
+                }
                 Detail = new NavigationPage(new Dividas());
             }
             base.OnAppearing();
