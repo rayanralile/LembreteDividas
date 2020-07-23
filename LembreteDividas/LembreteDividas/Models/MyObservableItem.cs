@@ -14,6 +14,15 @@ namespace LembreteDividas.Models
                 _tituloValor = value;
                 OnPropertyChanged(nameof(TituloValor));
             } }
+        private bool _isAnyItem;
+        public bool IsAnyItem { get { return _isAnyItem; } 
+            set 
+            {
+                if (_isAnyItem == value)
+                    return;
+                _isAnyItem = value;
+                OnPropertyChanged(nameof(IsAnyItem));
+            } }
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

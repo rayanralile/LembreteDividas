@@ -48,10 +48,17 @@ namespace LembreteDividas
                     valorTotal += item.Valor;
                 }
                 _tituloValor.TituloValor = $"Valor total de contas pagas: R${String.Format("{0:F2}", valorTotal)}";
+                if (valorTotal == 0)
+                    _tituloValor.IsAnyItem = false;
+                else
+                    _tituloValor.IsAnyItem = true;
                 
             }
-            else
+            else 
+            { 
                 _tituloValor.TituloValor = $"Valor total de contas pagas: R$0,00";
+                _tituloValor.IsAnyItem = false;
+            }
         }
 
         private async void Apagar_Clicked(object sender, EventArgs e)
@@ -85,6 +92,7 @@ namespace LembreteDividas
                 }
                 _paidBillsObs.Clear();
                 _tituloValor.TituloValor = $"Valor total de contas pagas: R$0,00";
+                _tituloValor.IsAnyItem = false;
             }
         }
         public static void InsertBill(PaidBill conta)
@@ -127,7 +135,8 @@ namespace LembreteDividas
 
             if (novaConta.DataVencimento.Subtract(DateTime.Now).Days >= 0)
             {
-                CrossLocalNotifications.Current.Show($"A conta {novaConta.Titulo} vence hoje",
+                if (DateTime.Now.Subtract(novaConta.DataVencimento.AddHours(12)).Hours < 0)
+                    CrossLocalNotifications.Current.Show($"A conta {novaConta.Titulo} vence hoje",
                         $"Valor: R${String.Format("{0:F2}", novaConta.Valor)} - Clique aqui para abrir o App",
                         novaConta.Id, novaConta.DataVencimento.AddHours(12));
                 Dividas.InsertBill(novaConta);

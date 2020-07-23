@@ -29,7 +29,8 @@ namespace LembreteDividas
 
         private void Email_Tapped(object sender, EventArgs e)
         {
-            Browser.OpenAsync("mailto:rayan@ralile.com.br", BrowserLaunchMode.SystemPreferred);
+            var address = "rayan@ralile.com.br";
+            Launcher.OpenAsync(new Uri($"mailto:{address}"));
         }
 
         private void Pexels_Tapped(object sender, EventArgs e)

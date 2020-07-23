@@ -49,7 +49,7 @@ namespace LembreteDividas
                     var temp1 = await _conn.Table<Bill>().OrderByDescending(x => x.Id).FirstAsync();
                     bill.Id = temp1.Id;
                     OverdueBills.InsertBill(bill);
-                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
+                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 0, DateTime.Today.AddDays(1).AddHours(12));
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace LembreteDividas
                         OverdueBills.InsertBill(bill);
                         CrossLocalNotifications.Current.Cancel(_id);
                     }
-                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
+                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 0, DateTime.Today.AddDays(1).AddHours(12));
                     await _conn.UpdateAsync(bill);
                 }
             }
@@ -75,7 +75,8 @@ namespace LembreteDividas
                     var temp2 = await _conn.Table<Bill>().OrderByDescending(x => x.Id).FirstAsync();
                     bill.Id = temp2.Id;
                     Dividas.InsertBill(bill);
-                    CrossLocalNotifications.Current.Show($"A conta {bill.Titulo} vence hoje",
+                    if (DateTime.Now.Subtract(bill.DataVencimento.AddHours(12)).Hours < 0)
+                        CrossLocalNotifications.Current.Show($"A conta {bill.Titulo} vence hoje",
                         $"Valor: R${String.Format("{0:F2}", bill.Valor)} - Clique aqui para abrir o App",
                         bill.Id, bill.DataVencimento.AddHours(12));
                 }
@@ -89,7 +90,8 @@ namespace LembreteDividas
                         OverdueBills.DeleteBill(bill);
                         Dividas.InsertBill(bill);
                     }
-                    CrossLocalNotifications.Current.Show($"A conta {bill.Titulo} vence hoje",
+                    if (DateTime.Now.Subtract(bill.DataVencimento.AddHours(12)).Hours < 0)
+                        CrossLocalNotifications.Current.Show($"A conta {bill.Titulo} vence hoje",
                         $"Valor: R${String.Format("{0:F2}", bill.Valor)} - Clique aqui para abrir o App",
                         bill.Id, bill.DataVencimento.AddHours(12));
 

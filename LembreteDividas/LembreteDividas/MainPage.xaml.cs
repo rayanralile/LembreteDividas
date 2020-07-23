@@ -28,15 +28,16 @@ namespace LembreteDividas
             var contas = await _conn.Table<Bill>().ToListAsync();
             if (contas.FirstOrDefault(x => x.DataVencimento.Subtract(DateTime.Now).Days < 0) != null) 
             {
-                CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 999999999, DateTime.Today.AddDays(1).AddHours(12));
+                CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 0, DateTime.Today.AddDays(1).AddHours(12));
                 Detail = new NavigationPage(new OverdueBills());
             }
             else 
             {
-                CrossLocalNotifications.Current.Cancel(999999999);
+                CrossLocalNotifications.Current.Cancel(0);
                 foreach (var item in contas)
                 {
-                    CrossLocalNotifications.Current.Show($"A conta {item.Titulo} vence hoje",
+                    if (DateTime.Now.Subtract(item.DataVencimento.AddHours(12)).Hours < 0)
+                        CrossLocalNotifications.Current.Show($"A conta {item.Titulo} vence hoje",
                         $"Valor: R${String.Format("{0:F2}", item.Valor)} - Clique aqui para abrir o App",
                         item.Id, item.DataVencimento.AddHours(12));
                 }
@@ -66,7 +67,8 @@ namespace LembreteDividas
 
         private void Feedback_Tapped(object sender, EventArgs e)
         {
-            Browser.OpenAsync("mailto:rayan@ralile.com.br", BrowserLaunchMode.SystemPreferred);
+            var address = "rayan@ralile.com.br";
+            Launcher.OpenAsync(new Uri($"mailto:{address}"));
         }
 
         private void Autor_Tapped(object sender, EventArgs e)

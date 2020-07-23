@@ -36,6 +36,6 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button AbsoluteLayout.LayoutBounds="0, 1, 1, 0.1" AbsoluteLayout.LayoutFlags="All"
-                    Text="Apagar Todas" Clicked="ApagarTodas_Clicked"/>
+                    Text="Apagar Todas" Clicked="ApagarTodas_Clicked" IsEnabled="{Binding IsAnyItem}"/>
     </AbsoluteLayout>
 </ContentPage>

@@ -115,14 +115,17 @@ namespace LembreteDividas
                 // Se a pessoa pagou essa dívida com mais de 1 mês de atraso, sua próxima boleta já está atrasada
                 // A linha abaixo irá ver isso e direcionar pra view certa
                 if (novaDivida.DataVencimento.Subtract(DateTime.Now).Days < 0)
+                {
                     OverdueBills.InsertBill(novaDivida);
+                    CrossLocalNotifications.Current.Show("Você tem conta(s) atrasada(s)!", "Abra o App clicando aqui para ver mais detalhes", 0, DateTime.Today.AddDays(1).AddHours(12));
+                }
                 else
                 {
                     Dividas.InsertBill(novaDivida);
-
-                    CrossLocalNotifications.Current.Show($"A conta {novaDivida.Titulo} vence hoje",
-                        $"Valor: R${String.Format("{0:F2}", novaDivida.Valor)} - Clique aqui para abrir o App",
-                        novaDivida.Id, novaDivida.DataVencimento.AddHours(12));
+                    if (DateTime.Now.Subtract(novaDivida.DataVencimento.AddHours(12)).Hours < 0)
+                        CrossLocalNotifications.Current.Show($"A conta {novaDivida.Titulo} vence hoje",
+                            $"Valor: R${String.Format("{0:F2}", novaDivida.Valor)} - Clique aqui para abrir o App",
+                            novaDivida.Id, novaDivida.DataVencimento.AddHours(12));
                 }
                 await DisplayAlert("Conta recorrente!", $"A conta {novaDivida.Titulo} foi criada com vencimento em {novaDivida.DataMensal}", "Ok");
             }
