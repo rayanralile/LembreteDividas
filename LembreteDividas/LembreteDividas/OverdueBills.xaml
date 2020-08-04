@@ -20,6 +20,7 @@
                         <ViewCell.ContextActions>
                             <MenuItem Text="Marcar como Paga" Clicked="Paga_Clicked" CommandParameter="{Binding .}"/>
                             <MenuItem Text="Apagar" IsDestructive="true" Clicked="Apagar_Clicked" CommandParameter="{Binding .}"/>
+                            <MenuItem Text="Apagar Todas" IsDestructive="true" Clicked="ApagarTodos_Clicked"/>
                         </ViewCell.ContextActions>
                         <Grid Padding="10,0">
                             <Grid.ColumnDefinitions>

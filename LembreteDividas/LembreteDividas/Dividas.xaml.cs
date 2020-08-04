@@ -1,4 +1,5 @@
-﻿using LembreteDividas.Models;
+﻿using LembreteDividas.Interfaces;
+using LembreteDividas.Models;
 using Plugin.LocalNotifications;
 using SQLite;
 using System;
@@ -17,6 +18,7 @@ namespace LembreteDividas
         private static ObservableCollection<Bill> _bills;
         private SQLiteAsyncConnection _conn;
         private MyObservableItem _tituloValor = new MyObservableItem();
+        private ILocalNotification _localNotify = MyOwnDI.ILocalNotificationDI();
         public Dividas()
         {
             InitializeComponent();
@@ -74,7 +76,32 @@ namespace LembreteDividas
 
         private async void Paga_Clicked(object sender, EventArgs e)
         {
+            double value = 0;
             var bill = (sender as MenuItem).CommandParameter as Bill;
+            // Etapa 0: se a conta for recorrente, pegar novo valor.
+            // Nessa etapa , o usuário pode cancelar a inserção
+            // Abaixo trataremos sobre esse cenário
+            if(bill.IsMensal)
+            {
+                string dados = await DisplayPromptAsync("Conta Recorrente", "Digite o novo valor da conta para o próximo mês:",
+                    "Ok", "Cancelar", "Ex: 120", -1, Keyboard.Numeric, bill.Valor.ToString());
+                if (String.IsNullOrWhiteSpace(dados))
+                    return;
+                try
+                {
+                    value = Convert.ToDouble(dados);
+                }
+                catch (FormatException)
+                {
+                    return;
+                }
+                catch(OverflowException)
+                {
+                    return;
+                }
+                if (value == 0)
+                    return;
+            }
             // Etapa 1: Remover notificação e remover do BD de dívidas e da view
             CrossLocalNotifications.Current.Cancel(bill.Id);
             _bills.Remove(bill);
@@ -107,7 +134,7 @@ namespace LembreteDividas
                     Descricao = bill.Descricao,
                     DataVencimento = bill.DataVencimento.AddMonths(1),
                     IsMensal = true,
-                    Valor = bill.Valor
+                    Valor = value
                 };
                 await _conn.InsertAsync(novaDivida);
                 var temp2 = await _conn.Table<Bill>().OrderByDescending(x => x.Id).FirstAsync();
@@ -191,6 +218,20 @@ namespace LembreteDividas
                 {
                     _bills.Add(item);
                 }
+            }
+        }
+
+        private async void ApagarTodos_Clicked(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Apagar todas as contas", "Tem certeza que deseja apagar todas as contas?", "Sim", "Cancelar"))
+            {
+                foreach (var item in _bills)
+                {
+                    _localNotify.Delete(item.Id);
+                    await _conn.DeleteAsync(item);
+                }
+                _bills.Clear();
+                CalculateSum();
             }
         }
     }
